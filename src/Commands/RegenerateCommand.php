@@ -5,11 +5,9 @@ namespace Spatie\MediaLibrary\Commands;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
-use Spatie\{
-    MediaLibrary\FileManipulator,
-    MediaLibrary\Media,
-    MediaLibrary\MediaRepository
-};
+use Spatie\MediaLibrary\FileManipulator;
+use Spatie\MediaLibrary\Media;
+use Spatie\MediaLibrary\MediaRepository;
 
 class RegenerateCommand extends Command
 {
@@ -77,12 +75,12 @@ class RegenerateCommand extends Command
         $this->info('All done!');
     }
 
-    public function getMediaToBeRegenerated(): Collection
+    public function getMediaToBeRegenerated()
     {
-        $modelType = $this->argument('modelType') ?? '';
+        $modelType = $this->argument('modelType');
         $mediaIds = $this->option('ids');
 
-        if ($modelType === '' && !$mediaIds) {
+        if ($modelType == '' && !$mediaIds) {
             return $this->mediaRepository->all();
         }
 

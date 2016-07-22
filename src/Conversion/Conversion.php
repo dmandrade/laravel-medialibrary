@@ -26,17 +26,17 @@ class Conversion
      */
     protected $performOnQueue = true;
 
-    public function __construct(string $name)
+    public function __construct($name)
     {
         $this->name = $name;
     }
 
-    public static function create(string $name)
+    public static function create($name)
     {
         return new static($name);
     }
 
-    public function getName() : string
+    public function getName()
     {
         return $this->name;
     }
@@ -44,7 +44,7 @@ class Conversion
     /**
      * Get the manipulations of this conversion.
      */
-    public function getManipulations() : array
+    public function getManipulations()
     {
         $manipulations = $this->manipulations;
 
@@ -63,9 +63,9 @@ class Conversion
      *
      * @return $this
      */
-    public function setManipulations(...$manipulations)
+    public function setManipulations($manipulations)
     {
-        $this->manipulations = $manipulations;
+        $this->manipulations = func_get_args();
 
         return $this;
     }
@@ -91,9 +91,9 @@ class Conversion
      *
      * @return $this
      */
-    public function performOnCollections(...$collectionNames)
+    public function performOnCollections($collectionNames)
     {
-        $this->performOnCollections = $collectionNames;
+        $this->performOnCollections = func_get_args();
 
         return $this;
     }
@@ -102,7 +102,7 @@ class Conversion
      * Determine if this conversion should be performed on the given
      * collection.
      */
-    public function shouldBePerformedOn(string $collectionName) : bool
+    public function shouldBePerformedOn($collectionName)
     {
         //if no collections were specified, perform conversion on all collections
         if (!count($this->performOnCollections)) {
@@ -143,7 +143,7 @@ class Conversion
     /*
      * Determine if the conversion should be queued.
      */
-    public function shouldBeQueued() : bool
+    public function shouldBeQueued()
     {
         return $this->performOnQueue;
     }
@@ -151,7 +151,7 @@ class Conversion
     /*
      * Get the extension that the result of this conversion must have.
      */
-    public function getResultExtension(string $originalFileExtension = '') : string
+    public function getResultExtension($originalFileExtension = '')
     {
         return array_reduce($this->getManipulations(), function ($carry, array $manipulation) {
 
@@ -169,7 +169,7 @@ class Conversion
     /*
      * Determine if the given manipulations contain a format manipulation.
      */
-    protected function containsFormatManipulation(array $manipulations) : bool
+    protected function containsFormatManipulation(array $manipulations)
     {
         foreach ($manipulations as $manipulation) {
             if (array_key_exists('fm', $manipulation)) {
@@ -190,7 +190,7 @@ class Conversion
      *
      * @throws \Spatie\MediaLibrary\Exceptions\InvalidConversionParameter
      */
-    public function setWidth(int $width)
+    public function setWidth($width)
     {
         if ($width < 1) {
             throw InvalidConversionParameter::invalidWidth();
@@ -211,7 +211,7 @@ class Conversion
      *
      * @throws \Spatie\MediaLibrary\Exceptions\InvalidConversionParameter
      */
-    public function setHeight(int $height)
+    public function setHeight($height)
     {
         if ($height < 1) {
             throw InvalidConversionParameter::invalidHeight();
@@ -232,7 +232,7 @@ class Conversion
      *
      * @throws \Spatie\MediaLibrary\Exceptions\InvalidConversionParameter
      */
-    public function setFormat(string $format)
+    public function setFormat($format)
     {
         $validFormats = ['jpg', 'png', 'gif', 'src'];
 
@@ -255,7 +255,7 @@ class Conversion
      *
      * @throws \Spatie\MediaLibrary\Exceptions\InvalidConversionParameter
      */
-    public function setFit(string $fit)
+    public function setFit($fit)
     {
         $validFits = [
             'contain',
@@ -295,7 +295,7 @@ class Conversion
      *
      * @throws \Spatie\MediaLibrary\Exceptions\InvalidConversionParameter
      */
-    public function setCrop(int $width, int $height, int $x, int $y)
+    public function setCrop($width, $height, $x, $y)
     {
         foreach (compact('width', 'height') as $name => $value) {
             if ($value < 1) {
@@ -316,7 +316,7 @@ class Conversion
      *
      * @return $this
      */
-    public function setManipulationParameter(string $name, string $value)
+    public function setManipulationParameter($name, $value)
     {
         $manipulation = array_pop($this->manipulations) ?: [];
 

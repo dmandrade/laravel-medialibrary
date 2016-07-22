@@ -33,7 +33,7 @@ class Filesystem
     /*
      * Add a file to the mediaLibrary for the given media.
      */
-    public function add(string $file, Media $media, string $targetFileName = '')
+    public function add($file, Media $media, $targetFileName = '')
     {
         $this->copyToMediaLibrary($file, $media, false, $targetFileName);
 
@@ -45,7 +45,7 @@ class Filesystem
     /*
      * Copy a file to the medialibrary for the given $media.
      */
-    public function copyToMediaLibrary(string $file, Media $media, bool $conversions = false, string $targetFileName = '')
+    public function copyToMediaLibrary($file, Media $media, $conversions = false, $targetFileName = '')
     {
         $destination = $this->getMediaDirectory($media, $conversions).
             ($targetFileName == '' ? pathinfo($file, PATHINFO_BASENAME) : $targetFileName);
@@ -68,7 +68,7 @@ class Filesystem
      * Get the headers to be used when copying the
      * given file to a remote filesytem.
      */
-    public function getRemoteHeadersForFile(string $file) : array
+    public function getRemoteHeadersForFile($file)
     {
         $mimeTypeHeader = ['ContentType' => File::getMimeType($file)];
 
@@ -80,7 +80,7 @@ class Filesystem
     /*
      * Copy a file from the medialibrary to the given targetFile.
      */
-    public function copyFromMediaLibrary(Media $media, string $targetFile)
+    public function copyFromMediaLibrary(Media $media, $targetFile)
     {
         $sourceFile = $this->getMediaDirectory($media).'/'.$media->file_name;
 
@@ -109,7 +109,7 @@ class Filesystem
     /*
      * Rename a file for the given media.
      */
-    public function renameFile(Media $media, string $oldName)
+    public function renameFile(Media $media, $oldName)
     {
         $oldFile = $this->getMediaDirectory($media).'/'.$oldName;
         $newFile = $this->getMediaDirectory($media).'/'.$media->file_name;
@@ -120,7 +120,7 @@ class Filesystem
     /*
      * Return the directory where all files of the given media are stored.
      */
-    public function getMediaDirectory(Media $media, bool $conversion = false) : string
+    public function getMediaDirectory(Media $media, $conversion = false)
     {
         $pathGenerator = PathGeneratorFactory::create();
 
@@ -136,7 +136,7 @@ class Filesystem
     /*
      * Return the directory where all conversions of the given media are stored.
      */
-    public function getConversionDirectory(Media $media) : string
+    public function getConversionDirectory(Media $media)
     {
         return $this->getMediaDirectory($media, true);
     }

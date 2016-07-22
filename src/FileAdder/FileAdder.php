@@ -149,7 +149,7 @@ class FileAdder
      *
      * @return $this
      */
-    public function usingName(string $name)
+    public function usingName($name)
     {
         return $this->setName($name);
     }
@@ -161,7 +161,7 @@ class FileAdder
      *
      * @return $this
      */
-    public function setName(string $name)
+    public function setName($name)
     {
         $this->mediaName = $name;
 
@@ -175,7 +175,7 @@ class FileAdder
      *
      * @return $this
      */
-    public function usingFileName(string $fileName)
+    public function usingFileName($fileName)
     {
         return $this->setFileName($fileName);
     }
@@ -187,7 +187,7 @@ class FileAdder
      *
      * @return $this
      */
-    public function setFileName(string $fileName)
+    public function setFileName($fileName)
     {
         $this->fileName = $this->sanitizeFileName($fileName);
 
@@ -246,7 +246,7 @@ class FileAdder
      * @throws FileDoesNotExist
      * @throws FileCannotBeAdded
      */
-    public function toMediaLibrary(string $collectionName = 'default', string $diskName = '')
+    public function toMediaLibrary($collectionName = 'default', $diskName = '')
     {
         return $this->toCollectionOnDisk($collectionName, $diskName);
     }
@@ -263,7 +263,7 @@ class FileAdder
      * @throws FileDoesNotExist
      * @throws FileCannotBeAdded
      */
-    public function toMediaLibraryOnDisk(string $collectionName = 'default', string $diskName = '')
+    public function toMediaLibraryOnDisk($collectionName = 'default', $diskName = '')
     {
         return $this->toCollectionOnDisk($collectionName, $diskName);
     }
@@ -280,7 +280,7 @@ class FileAdder
      * @throws FileDoesNotExist
      * @throws FileCannotBeAdded
      */
-    public function toCollection(string $collectionName = 'default', string $diskName = '')
+    public function toCollection($collectionName = 'default', $diskName = '')
     {
         return $this->toCollectionOnDisk($collectionName, $diskName);
     }
@@ -294,7 +294,7 @@ class FileAdder
      * @throws FileCannotBeAdded
      * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded
      */
-    public function toCollectionOnDisk(string $collectionName = 'default', string $diskName = '')
+    public function toCollectionOnDisk($collectionName = 'default', $diskName = '')
     {
         if (!$this->subject->exists) {
             throw FileCannotBeAdded::modelDoesNotExist($this->subject);
@@ -343,7 +343,7 @@ class FileAdder
      *
      * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded
      */
-    protected function determineDiskName(string $diskName)
+    protected function determineDiskName($diskName)
     {
         if ($diskName === '') {
             $diskName = config('laravel-medialibrary.defaultFilesystem');
@@ -363,7 +363,7 @@ class FileAdder
      *
      * @return string
      */
-    protected function sanitizeFileName(string $fileName) : string
+    protected function sanitizeFileName($fileName)
     {
         return str_replace(['#', '/', '\\'], '-', $fileName);
     }

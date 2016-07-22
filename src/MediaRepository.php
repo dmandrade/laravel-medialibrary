@@ -30,7 +30,7 @@ class MediaRepository
      *
      * @return Collection
      */
-    public function getCollection(HasMedia $model, string $collectionName, $filter = []) : Collection
+    public function getCollection(HasMedia $model, $collectionName, $filter = [])
     {
         $mediaCollection = $this->loadMedia($model, $collectionName);
 
@@ -47,7 +47,7 @@ class MediaRepository
      *
      * @return mixed
      */
-    protected function loadMedia(HasMedia $model, string $collectionName)
+    protected function loadMedia(HasMedia $model, $collectionName)
     {
         if ($this->mediaIsPreloaded($model)) {
             $media = $model->media->filter(function (Media $mediaItem) use ($collectionName) {
@@ -83,7 +83,7 @@ class MediaRepository
     /*
      * Determine if media is already preloaded on this model.
      */
-    protected function mediaIsPreloaded(HasMedia $model) : bool
+    protected function mediaIsPreloaded(HasMedia $model)
     {
         return isset($model->media);
     }
@@ -96,7 +96,7 @@ class MediaRepository
      *
      * @return Collection
      */
-    protected function applyFilterToMediaCollection(Collection $media, $filter) : Collection
+    protected function applyFilterToMediaCollection(Collection $media, $filter)
     {
         if (is_array($filter)) {
             $filter = $this->getDefaultFilterFunction($filter);
@@ -108,7 +108,7 @@ class MediaRepository
     /**
      * Get all media.
      */
-    public function all() : DbCollection
+    public function all()
     {
         return $this->model->all();
     }
@@ -116,7 +116,7 @@ class MediaRepository
     /*
      * Get all media for the given type.
      */
-    public function getByModelType(string $modelType) : DbCollection
+    public function getByModelType($modelType)
     {
         return $this->model->where('model_type', $modelType)->get();
     }
@@ -124,7 +124,7 @@ class MediaRepository
     /*
      * Get media by ids.
      */
-    public function getByIds(array $ids) : DbCollection
+    public function getByIds(array $ids)
     {
         return $this->model->whereIn('id', $ids)->get();
     }
@@ -132,7 +132,7 @@ class MediaRepository
     /*
      * Get all media for the given type and collection name.
      */
-    public function getByModelTypeAndCollectionName(string $modelType, string $collectionName) : DbCollection
+    public function getByModelTypeAndCollectionName($modelType, $collectionName)
     {
         return $this->model
             ->where('model_type', $modelType)
@@ -143,7 +143,7 @@ class MediaRepository
     /*
      * Get all media for the given type and collection name.
      */
-    public function getByCollectionName(string $collectionName) : DbCollection
+    public function getByCollectionName($collectionName)
     {
         return $this->model
             ->where('collection_name', $collectionName)

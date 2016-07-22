@@ -13,7 +13,7 @@ class FileCannotBeAdded extends Exception
         return new static('Only strings, FileObjects and UploadedFileObjects can be imported');
     }
 
-    public static function fileIsTooBig(string $path)
+    public static function fileIsTooBig($path)
     {
         $fileSize = File::getHumanReadableSize(filesize($path));
 
@@ -22,17 +22,17 @@ class FileCannotBeAdded extends Exception
         return new static("File `{$path}` has a size of {$fileSize} which is greater than the maximum allowed {$maxFileSize}");
     }
 
-    public static function fileDoesNotExist(string $path)
+    public static function fileDoesNotExist($path)
     {
         return new static("File `{$path}` does not exist");
     }
 
-    public static function unreachableUrl(string $url)
+    public static function unreachableUrl($url)
     {
         return new static("Url `{$url}` cannot be reached");
     }
 
-    public static function diskDoesNotExist(string $diskName)
+    public static function diskDoesNotExist($diskName)
     {
         return new static("There is no filesystem disk named `{$diskName}`");
     }

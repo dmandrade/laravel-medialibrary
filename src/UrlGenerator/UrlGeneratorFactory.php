@@ -8,7 +8,7 @@ use Spatie\MediaLibrary\PathGenerator\PathGeneratorFactory;
 
 class UrlGeneratorFactory
 {
-    public static function createForMedia(Media $media) : UrlGenerator
+    public static function createForMedia(Media $media)
     {
         $urlGeneratorClass = config('laravel-medialibrary.custom_url_generator_class')
             ?: 'Spatie\MediaLibrary\UrlGenerator\\'.ucfirst($media->getDiskDriverName()).'UrlGenerator';
@@ -23,7 +23,7 @@ class UrlGeneratorFactory
         return $urlGenerator;
     }
 
-    public static function guardAgainstInvalidUrlGenerator(string $urlGeneratorClass)
+    public static function guardAgainstInvalidUrlGenerator($urlGeneratorClass)
     {
         if (!class_exists($urlGeneratorClass)) {
             throw InvalidUrlGenerator::doesntExist($urlGeneratorClass);

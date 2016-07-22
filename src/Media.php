@@ -48,7 +48,7 @@ class Media extends Model
      *
      * @throws \Spatie\MediaLibrary\Exceptions\InvalidConversion
      */
-    public function getUrl(string $conversionName = '') : string
+    public function getUrl($conversionName = '')
     {
         $urlGenerator = UrlGeneratorFactory::createForMedia($this);
 
@@ -68,7 +68,7 @@ class Media extends Model
      *
      * @throws \Spatie\MediaLibrary\Exceptions\InvalidConversion
      */
-    public function getPath(string $conversionName = '') : string
+    public function getPath($conversionName = '')
     {
         $urlGenerator = UrlGeneratorFactory::createForMedia($this);
 
@@ -121,7 +121,7 @@ class Media extends Model
     /*
      * Determine the type of a file from its mime type
      */
-    public function getTypeFromMimeAttribute() : string
+    public function getTypeFromMimeAttribute()
     {
         if ($this->getDiskDriverName() !== 'local') {
             return static::TYPE_OTHER;
@@ -144,22 +144,22 @@ class Media extends Model
         return static::TYPE_OTHER;
     }
 
-    public function getMimeAttribute() : string
+    public function getMimeAttribute()
     {
         return File::getMimetype($this->getPath());
     }
 
-    public function getExtensionAttribute() : string
+    public function getExtensionAttribute()
     {
         return pathinfo($this->file_name, PATHINFO_EXTENSION);
     }
 
-    public function getHumanReadableSizeAttribute() : string
+    public function getHumanReadableSizeAttribute()
     {
         return File::getHumanReadableSize($this->size);
     }
 
-    public function getDiskDriverName() : string
+    public function getDiskDriverName()
     {
         return config("filesystems.disks.{$this->disk}.driver");
     }
@@ -167,7 +167,7 @@ class Media extends Model
     /*
      * Determine if the media item has a custom property with the given name.
      */
-    public function hasCustomProperty(string $propertyName) : bool
+    public function hasCustomProperty($propertyName)
     {
         return array_key_exists($propertyName, $this->custom_properties);
     }
@@ -180,16 +180,16 @@ class Media extends Model
      *
      * @return mixed
      */
-    public function getCustomProperty(string $propertyName, $default = null)
+    public function getCustomProperty($propertyName, $default = null)
     {
-        return $this->custom_properties[$propertyName] ?? $default;
+        return isset($this->custom_properties[$propertyName]) ? $this->custom_properties[$propertyName] : $default;
     }
 
     /**
      * @param string $name
      * @param mixed  $value
      */
-    public function setCustomProperty(string $name, $value)
+    public function setCustomProperty($name, $value)
     {
         $this->custom_properties = array_merge($this->custom_properties, [$name => $value]);
     }
@@ -199,7 +199,7 @@ class Media extends Model
      *
      * @return $this
      */
-    public function removeCustomProperty(string $name)
+    public function removeCustomProperty($name)
     {
         if ($this->hasCustomProperty($name)) {
 
@@ -216,7 +216,7 @@ class Media extends Model
     /*
      * Get all the names of the registered media conversions.
      */
-    public function getMediaConversionNames() : array
+    public function getMediaConversionNames()
     {
         $conversions = ConversionCollection::createForMedia($this);
 

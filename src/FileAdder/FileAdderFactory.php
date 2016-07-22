@@ -28,7 +28,7 @@ class FileAdderFactory
      *
      * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded
      */
-    public static function createFromRequest(Model $subject, string $key)
+    public static function createFromRequest(Model $subject, $key)
     {
         if (!request()->hasFile($key)) {
             throw FileCannotBeAdded::requestDoesNotHaveFile($key);
