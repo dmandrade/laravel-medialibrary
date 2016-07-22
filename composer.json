@@ -1,5 +1,5 @@
 {
-  "name": "spatie/laravel-medialibrary",
+  "name": "dmandrade/laravel-medialibrary",
   "description": "Associate files with Eloquent models",
   "keywords": [
     "spatie",
@@ -19,12 +19,12 @@
     }
   ],
   "require": {
-    "php" : "^7.0",
+    "php" : "^5.4 | ^7.0",
     "illuminate/bus": "~5.1.16|~5.2.0",
     "illuminate/console": "~5.1.16|~5.2.0",
     "illuminate/database": "~5.1.16|~5.2.0",
     "illuminate/support": "~5.1.16|~5.2.0",
-    "spatie/laravel-glide": "^3.0.0",
+    "dmandrade/laravel-glide": "dev-master",
     "spatie/pdf-to-image": "^1.0.1",
     "spatie/string": "^2.0.0"
 
